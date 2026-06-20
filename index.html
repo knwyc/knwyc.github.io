@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Ibrahim">
+    <meta name="description" content="Hi, This page will help you record and watch your goal">
+    <title>W4L</title>
+    <link rel="icon" href="img/dumbell.webp" type="image/x-icon">
+    <link rel="stylesheet" href="main.css">
+    <a href="howtouse.html"></a>
+</head>
+<body>
+
+    <header>
+        <h1>W4L</h1>
+    </header>
+
+    <hr>
+
+    <main>
+
+        <article id="workout">
+            <h2>Exercise Log</h2>
+
+            <div class="add-exercise-row">
+                <label for="exerciseInput" class="sr-only">Exercise name</label>
+                <input id="exerciseInput" placeholder="Exercise name" onkeydown="if(event.key==='Enter') addExercise()">
+                <button onclick="addExercise()">Add Exercise</button>
+            </div>
+
+            <div id="exerciseList"></div>
+            <p id="exerciseEmpty" class="empty-state">No exercises yet — add one above to get started.</p>
+
+            <div class="save-row">
+                <button onclick="saveToday()">Save Today's Workout</button>
+                <span id="saveMessage" class="save-message" role="status"></span>
+            </div>
+
+            <h2>History</h2>
+            <button id="clearHistoryBtn" onclick="clearHistory()">Clear History</button>
+            <div id="historyList"></div>
+            <div id="historyDetail"></div>
+        </article>
+        <hr>
+        <a href="howtouse.html">
+        <article id="howtouse" >
+        <h2>How to use</h2>
+        </article>
+</a>
+    </main>
+
+    <hr>
+
+    <footer>
+        &lt;&lt;&lt; &copy;<a href="about.html"> Hema </a> &gt;&gt;&gt;
+        <hr>
+        <p>
+            <a href="#">Back to top</a>
+        </p>
+        <hr>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

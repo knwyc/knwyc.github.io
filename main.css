@@ -1,0 +1,362 @@
+html {
+    font-size: 18px;
+}
+
+body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: rgb(146, 134, 117);
+    background-color: #6e211c;
+    background-image: url(img/DorianYatesWallpaper.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Readability overlay so text doesn't fight the background photo */
+header,
+main,
+footer {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 24px;
+    margin: 16px auto;
+    max-width: 900px;
+    border-radius: 10px;
+}
+
+h1, h2 {
+    color: rgb(146, 134, 117);
+}
+
+h2 {
+    border-bottom: 2px solid rgba(147, 150, 17, 0.5);
+    padding-bottom: 8px;
+    margin-top: 36px;
+}
+
+h2:first-of-type {
+    margin-top: 0;
+}
+
+p {
+    color: #ffffff;
+}
+
+a {
+    color: rgb(147, 150, 17);
+    text-decoration: underline;
+}
+
+a:visited {
+    color: azure;
+}
+
+a:hover,
+a:active {
+    color: #eee;
+}
+
+/* Screen-reader only label */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+/* Inputs and buttons */
+.add-exercise-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+input {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.add-exercise-row input {
+    flex: 1;
+    min-width: 160px;
+}
+
+input:focus,
+button:focus {
+    outline: 2px solid rgb(147, 150, 17);
+    outline-offset: 2px;
+}
+
+button {
+    padding: 8px 14px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(147, 150, 17);
+    color: #fff;
+    transition: background-color 0.15s ease;
+}
+
+button:hover {
+    background-color: rgb(120, 122, 14);
+}
+
+#clearHistoryBtn {
+    background-color: transparent;
+    border: 1px solid #b34646;
+    color: #e3a5a5;
+    margin-bottom: 12px;
+}
+
+#clearHistoryBtn:hover {
+    background-color: rgba(179, 70, 70, 0.2);
+}
+
+/* Empty states */
+.empty-state {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+    display: none;
+}
+
+/* Exercise / set cards */
+.exercise {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 14px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 8px;
+}
+
+.exercise-header strong {
+    font-size: 1.15rem;
+    color: #fff;
+}
+
+.exercise-name-input {
+    flex: 1;
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 4px 6px;
+    font-family: inherit;
+}
+
+.exercise-name-input:hover,
+.exercise-name-input:focus {
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.week-header {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 18px 0 6px 0;
+}
+
+.week-header:first-child {
+    margin-top: 0;
+}
+
+.set {
+    margin: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.set-label {
+    width: 52px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.set input {
+    width: 80px;
+}
+
+.add-set-btn {
+    background-color: transparent;
+    border: 1px dashed rgb(147, 150, 17);
+    color: rgb(147, 150, 17);
+    margin-top: 6px;
+}
+
+.add-set-btn:hover {
+    background-color: rgba(147, 150, 17, 0.15);
+}
+
+/* Save row */
+.save-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.save-message {
+    color: #6fcf6f;
+    font-weight: bold;
+}
+
+/* History list */
+.history-day {
+    cursor: pointer;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.15s ease;
+}
+
+.history-day:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.history-day.today {
+    border-color: rgb(147, 150, 17);
+}
+
+.history-day .badge {
+    font-size: 0.75rem;
+    color: rgb(147, 150, 17);
+    border: 1px solid rgb(147, 150, 17);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+#historyDetail {
+    margin-top: 12px;
+}
+
+#historyDetail h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+/* Tablet and below */
+@media (max-width: 768px) {
+    header,
+    main,
+    footer {
+        margin: 10px;
+        padding: 18px;
+        border-radius: 8px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    html {
+        font-size: 16px;
+    }
+
+    /* Prevents iOS Safari from zooming in when an input is focused */
+    input {
+        font-size: 16px;
+    }
+
+    /* Bigger tap targets */
+    button {
+        padding: 12px 16px;
+        min-height: 44px;
+    }
+
+    .add-exercise-row {
+        flex-direction: column;
+    }
+
+    .add-exercise-row input,
+    .add-exercise-row button {
+        width: 100%;
+    }
+
+    .exercise-header {
+        flex-wrap: wrap;
+    }
+
+    .exercise-header strong {
+        flex: 1 1 100%;
+        margin-bottom: 4px;
+    }
+
+    .set {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 8px;
+    }
+
+    .set-label {
+        width: auto;
+    }
+
+    .set input {
+        width: 100%;
+    }
+
+    .set button {
+        width: 100%;
+    }
+
+    .add-set-btn {
+        width: 100%;
+    }
+
+    .save-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .save-row button {
+        width: 100%;
+    }
+
+    #clearHistoryBtn {
+        width: 100%;
+    }
+
+    .history-day {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+    html {
+        font-size: 15px;
+    }
+
+    header,
+    main,
+    footer {
+        margin: 6px;
+        padding: 14px;
+    }
+}
