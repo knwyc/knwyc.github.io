@@ -77,7 +77,10 @@ function saveToday() {
     return;
   }
 
-  workoutLog[todayKey()] = exercises;
+  const nameInput = document.getElementById('logNameInput');
+  const logName = nameInput ? nameInput.value.trim() : '';
+
+  workoutLog[todayKey()] = { name: logName, exercises: exercises };
   localStorage.setItem('workoutLog', JSON.stringify(workoutLog));
   renderHistory();
 
@@ -87,6 +90,26 @@ function saveToday() {
     msg.textContent = 'Saved!';
     setTimeout(function () { msg.textContent = ''; }, 2000);
   }
+}
+
+function getLogExercises(dateKey) {
+  const entry = workoutLog[dateKey];
+  if (!entry) return [];
+  return Array.isArray(entry) ? entry : (entry.exercises || []);
+}
+
+function getLogName(dateKey) {
+  const entry = workoutLog[dateKey];
+  if (!entry || Array.isArray(entry)) return '';
+  return entry.name || '';
+}
+
+function renameLog(dateKey, newName) {
+  const entry = workoutLog[dateKey];
+  const exercisesData = Array.isArray(entry) ? entry : (entry.exercises || []);
+  workoutLog[dateKey] = { name: newName.trim(), exercises: exercisesData };
+  localStorage.setItem('workoutLog', JSON.stringify(workoutLog));
+  renderHistory();
 }
 
 function clearHistory() {
@@ -107,7 +130,7 @@ function showDay(dateKey) {
   const detail = document.getElementById('historyDetail');
   if (!detail) return;
 
-  const dayExercises = workoutLog[dateKey] || [];
+  const dayExercises = getLogExercises(dateKey);
 
   let html = '<h3>' + dateKey + '</h3>';
 
@@ -196,10 +219,14 @@ function renderHistory() {
 
     const day = document.createElement('div');
     day.className = 'history-day' + (dateKey === today ? ' today' : '');
-    const exerciseCount = workoutLog[dateKey].length;
+    const exerciseCount = getLogExercises(dateKey).length;
+    const logName = getLogName(dateKey);
 
-    let html = '<strong>' + dateKey + '</strong>';
+    let html = '<div class="history-day-row">';
+    html += '<input class="log-name-input" placeholder="Name this log..." value="' + logName + '" onclick="event.stopPropagation()" onchange="renameLog(\'' + dateKey + '\',this.value)">';
+    html += '<strong>' + dateKey + '</strong>';
     html += '<span class="badge">' + exerciseCount + (exerciseCount === 1 ? ' exercise' : ' exercises') + '</span>';
+    html += '</div>';
     day.innerHTML = html;
 
     day.addEventListener('click', function () {
