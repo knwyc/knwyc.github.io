@@ -30,7 +30,7 @@ function addExercise() {
   const name = input.value.trim();
   if (name === '') return;
 
-  exercises.push({ name: name, sets: [{ reps: '', weight: '' }] });
+  exercises.push({ name: name, sets: [{ reps: '', weight: '' }], collapsed: false });
   input.value = '';
   input.focus();
   render();
@@ -45,6 +45,11 @@ function renameExercise(index, newName) {
   const trimmed = newName.trim();
   if (trimmed === '') return;
   exercises[index].name = trimmed;
+}
+
+function toggleExercise(index) {
+  exercises[index].collapsed = !exercises[index].collapsed;
+  render();
 }
 
 function addSet(exIndex) {
@@ -138,21 +143,25 @@ function render() {
     const div = document.createElement('div');
     div.className = 'exercise';
 
+    const isCollapsed = !!ex.collapsed;
     let html = '<div class="exercise-header">';
+    html += '<button class="toggle-btn" onclick="toggleExercise(' + exIndex + ')">' + (isCollapsed ? '▶' : '▼') + '</button>';
     html += '<input class="exercise-name-input" value="' + ex.name + '" onchange="renameExercise(' + exIndex + ',this.value)">';
     html += '<button onclick="removeExercise(' + exIndex + ')">Remove</button>';
     html += '</div>';
 
-    ex.sets.forEach(function (set, setIndex) {
-      html += '<div class="set">';
-      html += '<span class="set-label">Set ' + (setIndex + 1) + '</span>';
-      html += '<input type="number" min="0" placeholder="reps" value="' + set.reps + '" onchange="updateSet(' + exIndex + ',' + setIndex + ',\'reps\',this.value)">';
-      html += '<input type="number" min="0" placeholder="kg" value="' + set.weight + '" onchange="updateSet(' + exIndex + ',' + setIndex + ',\'weight\',this.value)">';
-      html += '<button onclick="removeSet(' + exIndex + ',' + setIndex + ')">X</button>';
-      html += '</div>';
-    });
+    if (!isCollapsed) {
+      ex.sets.forEach(function (set, setIndex) {
+        html += '<div class="set">';
+        html += '<span class="set-label">Set ' + (setIndex + 1) + '</span>';
+        html += '<input type="number" min="0" placeholder="reps" value="' + set.reps + '" onchange="updateSet(' + exIndex + ',' + setIndex + ',\'reps\',this.value)">';
+        html += '<input type="number" min="0" placeholder="kg" value="' + set.weight + '" onchange="updateSet(' + exIndex + ',' + setIndex + ',\'weight\',this.value)">';
+        html += '<button onclick="removeSet(' + exIndex + ',' + setIndex + ')">X</button>';
+        html += '</div>';
+      });
 
-    html += '<button class="add-set-btn" onclick="addSet(' + exIndex + ')">+ Add Set</button>';
+      html += '<button class="add-set-btn" onclick="addSet(' + exIndex + ')">+ Add Set</button>';
+    }
 
     div.innerHTML = html;
     list.appendChild(div);
